@@ -1,0 +1,58 @@
+#! /bin/bash
+
+#echo "test"
+
+#../sgd_gpu -l 0.02 -r 0.05 -s 1 -n 1 -k 128 -t 50 ../../test_data/real_matrix.tr.txt
+
+
+
+
+./sgd_gpu -l 0.05 -r 0.002 -s 300 -n 300 -k 128 -t 50 ../../cmu_dataset/netflix_mm 
+
+#| tee log_test
+
+#/home/xiaolong/programming/xx_libmf-2.01/mf-predict -e 0 ../../cmu_dataset/netflix_mme.txt netflix_mm.model
+
+
+#| tee log
+#/home/xiaolong/programming/xx_libmf-2.01/mf-predict -e 0 ../../../cmu_dataset/netflix_mme.txt netflix_mm.model | tee -a log
+
+
+#../sgd_gpu -l 0.03 -r 0.005 -s 10 -n 14 -k 128 -t 200 ../../../cmu_dataset/netflix_mm | tee log-0.005
+#/home/xiaolong/programming/xx_libmf-2.01/mf-predict -e 0 ../../../cmu_dataset/netflix_mme.txt netflix_mm.model | tee -a log-0.005
+#cp netflix_mm.model netflix_mm.model-0.005
+
+#../sgd_gpu -l 0.008 -r 0.02 -s 10 -n 14 -k 128 -t 200 ../../../cmu_dataset/netflix_mm | tee log-0.008
+#/home/xiaolong/programming/xx_libmf-2.01/mf-predict -e 0 ../../../cmu_dataset/netflix_mme.txt netflix_mm.model | tee -a log-0.008
+#cp netflix_mm.model netflix_mm.model-0.008
+
+#../sgd_gpu -l 0.01 -r 0.02 -s 10 -n 14 -k 128 -t 200 ../../../cmu_dataset/netflix_mm | tee log-0.01
+#/home/xiaolong/programming/xx_libmf-2.01/mf-predict -e 0 ../../../cmu_dataset/netflix_mme.txt netflix_mm.model | tee -a log-0.01
+#cp netflix_mm.model netflix_mm.model-0.01
+
+#../sgd_gpu -l 0.02 -r 0.02 -s 10 -n 14 -k 128 -t 200 ../../../cmu_dataset/netflix_mm | tee log-0.02
+#/home/xiaolong/programming/xx_libmf-2.01/mf-predict -e 0 ../../../cmu_dataset/netflix_mme.txt netflix_mm.model | tee -a log-0.02
+#cp netflix_mm.model netflix_mm.model-0.02
+
+#../sgd_gpu -l 0.02 -r 0.03 -s 10 -n 14 -k 128 -t 200 ../../../cmu_dataset/netflix_mm | tee log-0.03
+#/home/xiaolong/programming/xx_libmf-2.01/mf-predict -e 0 ../../../cmu_dataset/netflix_mme.txt netflix_mm.model | tee -a log-0.03
+#cp netflix_mm.model netflix_mm.model-0.03
+
+#../sgd_gpu -l 0.045 -r 0.02 -s 10 -n 14 -k 128 -t 200 ../../../cmu_dataset/netflix_mm | tee log-0.045
+#/home/xiaolong/programming/xx_libmf-2.01/mf-predict -e 0 ../../../cmu_dataset/netflix_mme.txt netflix_mm.model | tee -a log-0.045
+#cp netflix_mm.model netflix_mm.model-0.045
+
+
+
+
+
+
+
+
+
+#nvprof --analysis-metrics -o  analysis.nvprof ../sgd_gpu_fp16 -l 0.02 -r 0.02 -s 180 -n 180 -k 128 -t 50 ../../../cmu_dataset/netflix_mm
+
+#cuda-memcheck ./sgd_gpu -l 0.02 -r 0.01 -s 2 -n 2 -k 128 -t 2 ../../cmu_dataset/netflix_mm
+
+
+#nvprof --analysis-metrics -o  nbody-analysis.nvprof ./nbody --benchmark -numdevices=2 -i=1
