@@ -2,7 +2,7 @@
 
 ##Introduction
 
-Matrix factorization has been demonstrated to be effective in recommender system, topic modeling, word embedding, and other machine learning applications. As the input data set is often large, MF solution are time-consuming. Therefore, how to solve MF problems efficiently is an important problem. There are mainly three algorithms to solve MF, coordinate gradient descent(CGD), alternate least square(ALS), and stochastic gradient descent(SGD). Our previous project tackles ALS acceleration on GPUs, we foucs on SGD solution in this project and present **cuMF_SGD**.
+Matrix factorization has been demonstrated to be effective in recommender system, topic modeling, word embedding, and other machine learning applications. As the input data set is often large, MF solution are time-consuming. Therefore, how to solve MF problems efficiently is an important problem. There are mainly three algorithms to solve MF, coordinate gradient descent(CGD), alternate least square(ALS), and stochastic gradient descent(SGD). Our previous project tackles [ALS](https://github.com/wei-tan/cumf_als) acceleration on GPUs, we foucs on SGD solution in this project and present **cuMF_SGD**.
 
 
 <img src=https://github.com/CuMF/cumf_sgd/raw/master/figures/mf.png width=405 height=161 />
