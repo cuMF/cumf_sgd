@@ -37,7 +37,9 @@ Then you can use netflix_mm.bin as the train set and netflix_mme.bin as the test
 
 
 ## Run
-usage: ./singleGPU/cumf_sgd [options] train_file [model_file]
+usage: 
+    
+    ./singleGPU/cumf_sgd [options] train_file [model_file]
 
 options:<br />
 -g <gpu_id>: specify the device id of the GPU(optional).<br />
