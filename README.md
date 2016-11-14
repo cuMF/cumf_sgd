@@ -40,7 +40,6 @@ Then you can use netflix_mm.bin as the train set and netflix_mme.bin as the test
 usage: ./singleGPU/cumf_sgd [options] train_file [model_file]
 
 options:
-
 -g <gpu_id>: specify the device id of the GPU(optional).
 
 -l <lambda>: l2 regularization parameter for both P and Q.
