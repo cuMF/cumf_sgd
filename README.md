@@ -23,7 +23,7 @@ Run the Makefile in the source code directory.
 ## Input data format
 
 The input rating is organized as follows:
-	user_id item_id rating
+    user_id item_id rating
 user_id and item_id are 4-byte integers and rating is 4-byte floating point. They are all stored in binary format. 
 
 
