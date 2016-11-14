@@ -59,7 +59,7 @@ We have a run script for Netflix data set:
 
     ./data/netflix/run.sh
 
-In this script, we set u, v, x, and y as 1 as the data set is enough to fit into one GPU. We recommend developers to set thread blocks size as NumberOfSMs \times NumberOfBlocksPerSM. On TITAN X GPU, the number is 24 \times 32=768.
+In this script, we set u, v, x, and y as 1 as the data set is enough to fit into one GPU. We recommend developers to set thread blocks size as NumberOfSMs * NumberOfBlocksPerSM. On TITAN X GPU, the number is 24 * 32=768.
 
 
 ## Test
