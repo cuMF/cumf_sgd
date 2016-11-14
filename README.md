@@ -1,4 +1,4 @@
-# CuMF_sgd
+# CuMF_SGD
 
 ##Introduction
 
