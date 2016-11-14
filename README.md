@@ -39,18 +39,18 @@ Then you can use netflix_mm.bin as the train set and netflix_mme.bin as the test
 ## Run
 usage: ./singleGPU/cumf_sgd [options] train_file [model_file]
 
-options:\s\s
--g <gpu_id>: specify the device id of the GPU(optional).\s\s
--l <lambda>: l2 regularization parameter for both P and Q.\s\s
--k <dimensions>: length of the factorization factor. Now cuMF_SGD only supports k = 128.\s\s
--t <iterations>: number of iterations.\s\s
--a <alpha>: initial learning rate.\s\s
--b <beta>: learning rate scheduling parameter(see the paper for learning rate scheduling algorithm).\s\s
--s <thread blocks>: number of thread blocks.\s\s
--u :\s\s
--v : first level partion parameters. We partition the input matrix into u \times v blocks. Default is 1*1.\s\s
--x :\s\s
--y : For each partition, we further partion it into x*y blocks and overlap x \times y blocks to minimize the memory transfer overhead. Default is 1*1.\s\s
+options:<br />
+-g <gpu_id>: specify the device id of the GPU(optional).<br />
+-l <lambda>: l2 regularization parameter for both P and Q.<br />
+-k <dimensions>: length of the factorization factor. Now cuMF_SGD only supports k = 128.<br />
+-t <iterations>: number of iterations.<br />
+-a <alpha>: initial learning rate.<br />
+-b <beta>: learning rate scheduling parameter(see the paper for learning rate scheduling algorithm).<br />
+-s <thread blocks>: number of thread blocks.<br />
+-u :<br />
+-v : first level partion parameters. We partition the input matrix into u \times v blocks. Default is 1*1.<br />
+-x :<br />
+-y : For each partition, we further partion it into x*y blocks and overlap x \times y blocks to minimize the memory transfer overhead. Default is 1*1.<br />
 
 
 We have a run script for Netflix data set:
@@ -63,12 +63,9 @@ In this script, we set u, v, x, and y as 1 as the data set is enough to fit into
 ## Test
 We use the same model file with [Libmf](https://github.com/cjlin1/libmf) but with different input file format. We adopt the test code of [Libmf](https://github.com/cjlin1/libmf) and modify it to adapt to our file format. You can run the following commands to run test for Netflix data set.
   
-    cd test
-
-    make
-
-    cd ..
-
+    cd test<br />
+    make<br />
+    cd ..<br />
     ./data/netflix/test.sh
 
 
