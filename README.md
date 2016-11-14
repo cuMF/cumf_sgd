@@ -18,19 +18,37 @@ Note: the repository only contains single GPU version, the multiple GPU version 
 
 ## Compilation 
 
+Run the Makefile in the source code directory.
 
 ## Input data format
 
+The input rating is organized as follows:
+	user_id item_id rating
+user_id and item_id are 4-byte integers and rating is 4-byte floating point. They are all stored in binary format. 
+
+
+To facilitate your development, we describe how to prepare input data sets and use Netflix data set as example. The Netflix data sets can be downloaded from [CMU Graphlab](http://www.select.cs.cmu.edu/code/graphlab/datasets/). 
+
+We use netflix_mm/netflix_me as the train/test sets. The orginal files are in text format, not binary format. You can transform the format using the script located in data/netflix/run.sh. Download [netflix_mm](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mm) and [netflix_mme](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mme) , put the files in ./data/netflix run the script:
+	./data/netflix/run.sh
+Then you can use netflix_mm.bin as the train set and netflix_mme.bin as the test set. 
+
+
+
+CuMF_SGD does not include a script to run the test, we suggest you use the [Libmf](https://github.com/cjlin1/libmf) to run the test.
 
 ## Run
 
 
 ## Reference
 
+## Existing Issues
+
 Details can be found at:
 
-Xiaolong Xie, Wei Tan, Liana Fong, Yun Liang, CuMF_SGD: Fast and Scalable Matrix Factorization, arXiv preprint, arXiv:1610.05838([(link)](https://arxiv.org/abs/1610.05838)).
+Xiaolong Xie, [Wei Tan](https://github.com/wei-tan), [Liana Fong](https://github.com/llfong), Yun Liang, CuMF_SGD: Fast and Scalable Matrix Factorization, arXiv preprint, arXiv:1610.05838([link](https://arxiv.org/abs/1610.05838)).
 
 Our ALS-based MF solution can be found here:
-Faster and Cheaper: Parallelizing Large-Scale Matrix Factorization on GPUs. Wei Tan, [Liangliang Cao](https://github.com/llcao), [Liana Fong](https://github.com/llfong). [HPDC 2016], Kyoto, Japan. [(arXiv)](http://arxiv.org/abs/1603.03820) [(github)](https://github.com/wei-tan/cumf_als)
+
+Faster and Cheaper: Parallelizing Large-Scale Matrix Factorization on GPUs. [Wei Tan](https://github.com/wei-tan), [Liangliang Cao](https://github.com/llcao), [Liana Fong](https://github.com/llfong). [HPDC 2016], Kyoto, Japan. [(arXiv)](http://arxiv.org/abs/1603.03820) [(github)](https://github.com/wei-tan/cumf_als)
 
