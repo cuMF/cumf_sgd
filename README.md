@@ -38,33 +38,53 @@ Then you can use netflix_mm.bin as the train set and netflix_mme.bin as the test
 
 ## Run
 usage: ./singleGPU/cumf_sgd [options] train_file [model_file]
+
 options:
+
 -g <gpu_id>: specify the device id of the GPU(optional).
+
 -l <lambda>: l2 regularization parameter for both P and Q.
+
 -k <dimensions>: length of the factorization factor. Now cuMF_SGD only supports k = 128.
+
 -t <iterations>: number of iterations.
+
 -a <alpha>: initial learning rate.
+
 -b <beta>: learning rate scheduling parameter(see the paper for learning rate scheduling algorithm).
+
 -s <thread blocks>: number of thread blocks.
+
 -u :
--v : first level partion parameters. We partition the input matrix into u*v blocks. Default is 1*1.
+
+-v : first level partion parameters. We partition the input matrix into u \times v blocks. Default is 1*1.
+
 -x :
--y : For each partition, we further partion it into x*y blocks and overlap x*y blocks to minimize the memory transfer overhead. Default is 1*1.
+
+-y : For each partition, we further partion it into x*y blocks and overlap x \times y blocks to minimize the memory transfer overhead. Default is 1*1.
+
 
 We have a run script for Netflix data set:
 
     ./data/netflix/run.sh
 
-In this script, we set u, v, x, and y as 1 as the data set is enough to fit into one GPU. We recommend developers to set thread blocks size as NumberOfSMs*NumberOfBlocksPerSM. On TITAN X GPU, the number is 24*32=768.
+In this script, we set u, v, x, and y as 1 as the data set is enough to fit into one GPU. We recommend developers to set thread blocks size as NumberOfSMs \times NumberOfBlocksPerSM. On TITAN X GPU, the number is 24 \times 32=768.
 
 
 ## Test
-We adopt the same model file with [Libmf](https://github.com/cjlin1/libmf) but with different input file format.
+We use the same model file with [Libmf](https://github.com/cjlin1/libmf) but with different input file format. We adopt the test code of [Libmf](https://github.com/cjlin1/libmf) and modify it to adapt to our file format. You can run the following commands to run test for Netflix data set.
+  
+    cd test
+
+    make
+
+    cd ..
+
+    ./data/netflix/test.sh
 
 
 ## Reference
 
-## Existing Issues
 
 Details can be found at:
 
