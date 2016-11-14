@@ -50,9 +50,9 @@ options:<br />
 -b <beta>: learning rate scheduling parameter(see the paper for learning rate scheduling algorithm).<br />
 -s <thread blocks>: number of thread blocks.<br />
 -u :<br />
--v : first level partion parameters. We partition the input matrix into u * v blocks. Default is 1*1.<br />
+-v : first level partion parameters. We partition the input matrix into u * v blocks. Default is 1 * 1.<br />
 -x :<br />
--y : For each partition, we further partion it into x*y blocks and overlap x * y blocks to minimize the memory transfer overhead. Default is 1*1.<br />
+-y : For each partition, we further partion it into x * y blocks and overlap x * y blocks to minimize the memory transfer overhead. Default is 1*1.<br />
 
 
 We have a run script for Netflix data set:
