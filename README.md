@@ -23,21 +23,43 @@ Run the Makefile in the source code directory.
 ## Input data format
 
 The input rating is organized as follows:
+
     user_id item_id rating
+
 user_id and item_id are 4-byte integers and rating is 4-byte floating point. They are all stored in binary format. 
 
 
 To facilitate your development, we describe how to prepare input data sets and use Netflix data set as example. The Netflix data sets can be downloaded from [CMU Graphlab](http://www.select.cs.cmu.edu/code/graphlab/datasets/). 
 
 We use netflix_mm/netflix_me as the train/test sets. The orginal files are in text format, not binary format. You can transform the format using the script located in data/netflix/run.sh. Download [netflix_mm](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mm) and [netflix_mme](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mme) , put the files in ./data/netflix run the script:
-	./data/netflix/run.sh
+	./data/netflix/prepare.sh
 Then you can use netflix_mm.bin as the train set and netflix_mme.bin as the test set. 
 
 
-
-CuMF_SGD does not include a script to run the test, we suggest you use the [Libmf](https://github.com/cjlin1/libmf) to run the test.
-
 ## Run
+usage: ./singleGPU/cumf_sgd [options] train_file [model_file]
+options:
+-g <gpu_id>: specify the device id of the GPU(optional).
+-l <lambda>: l2 regularization parameter for both P and Q.
+-k <dimensions>: length of the factorization factor. Now cuMF_SGD only supports k = 128.
+-t <iterations>: number of iterations.
+-a <alpha>: initial learning rate.
+-b <beta>: learning rate scheduling parameter(see the paper for learning rate scheduling algorithm).
+-s <thread blocks>: number of thread blocks.
+-u :
+-v : first level partion parameters. We partition the input matrix into u*v blocks. Default is 1*1.
+-x :
+-y : For each partition, we further partion it into x*y blocks and overlap x*y blocks to minimize the memory transfer overhead. Default is 1*1.
+
+We have a run script for Netflix data set:
+
+    ./data/netflix/run.sh
+
+In this script, we set u, v, x, and y as 1 as the data set is enough to fit into one GPU. We recommend developers to set thread blocks size as NumberOfSMs*NumberOfBlocksPerSM. On TITAN X GPU, the number is 24*32=768.
+
+
+## Test
+We adopt the same model file with [Libmf](https://github.com/cjlin1/libmf) but with different input file format.
 
 
 ## Reference

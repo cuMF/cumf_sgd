@@ -1,7 +1,3 @@
 #! /bin/bash
 
-
-make clean
-make
-./transform netflix_mm
-./transform netflix_mme
+../../cumf_sgd -g 1 -l 0.05 -a 0.08 -b 0.3 -u 1 -v 1 -x 1 -y 1 -s 768 -k 128 -t 20 ./netflix_mm.bin
