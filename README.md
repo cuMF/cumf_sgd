@@ -39,28 +39,18 @@ Then you can use netflix_mm.bin as the train set and netflix_mme.bin as the test
 ## Run
 usage: ./singleGPU/cumf_sgd [options] train_file [model_file]
 
-options:
--g <gpu_id>: specify the device id of the GPU(optional).
-
--l <lambda>: l2 regularization parameter for both P and Q.
-
--k <dimensions>: length of the factorization factor. Now cuMF_SGD only supports k = 128.
-
--t <iterations>: number of iterations.
-
--a <alpha>: initial learning rate.
-
--b <beta>: learning rate scheduling parameter(see the paper for learning rate scheduling algorithm).
-
--s <thread blocks>: number of thread blocks.
-
--u :
-
--v : first level partion parameters. We partition the input matrix into u \times v blocks. Default is 1*1.
-
--x :
-
--y : For each partition, we further partion it into x*y blocks and overlap x \times y blocks to minimize the memory transfer overhead. Default is 1*1.
+options:\s
+-g <gpu_id>: specify the device id of the GPU(optional).\s
+-l <lambda>: l2 regularization parameter for both P and Q.\s
+-k <dimensions>: length of the factorization factor. Now cuMF_SGD only supports k = 128.\s
+-t <iterations>: number of iterations.\s
+-a <alpha>: initial learning rate.\s
+-b <beta>: learning rate scheduling parameter(see the paper for learning rate scheduling algorithm).\s
+-s <thread blocks>: number of thread blocks.\s
+-u :\s
+-v : first level partion parameters. We partition the input matrix into u \times v blocks. Default is 1*1.\s
+-x :\s
+-y : For each partition, we further partion it into x*y blocks and overlap x \times y blocks to minimize the memory transfer overhead. Default is 1*1.\s
 
 
 We have a run script for Netflix data set:
