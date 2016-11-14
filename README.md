@@ -63,9 +63,9 @@ In this script, we set u, v, x, and y as 1 as the data set is enough to fit into
 ## Test
 We use the same model file with [Libmf](https://github.com/cjlin1/libmf) but with different input file format. We adopt the test code of [Libmf](https://github.com/cjlin1/libmf) and modify it to adapt to our file format. You can run the following commands to run test for Netflix data set.
   
-    cd test<br />
-    make<br />
-    cd ..<br />
+    cd test
+    make
+    cd ..
     ./data/netflix/test.sh
 
 
