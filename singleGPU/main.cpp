@@ -130,13 +130,13 @@ Argument parse_argument(int argc, char **argv)
         else if(args[i].compare("-s") == 0)
         {
             if((i+1) >= argc)
-                throw invalid_argument("need to specify number of thread blocks\
-                                        after -s");
+                throw invalid_argument("need to specify number of parallel workers\
+                                        after -s(multiples of 4)");
             i++;
 
             if(!is_numerical(argv[i]))
-                throw invalid_argument("-s should be followed by a number");
-            arg.param.num_blocks = atoi(argv[i]);
+                throw invalid_argument("-s should be followed by a number which is multiple of 4");
+            arg.param.num_workers = ((atoi(argv[i]) + 3)/4)*4;
         }
         else if(args[i].compare("-u") == 0)
         {

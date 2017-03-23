@@ -1,6 +1,6 @@
 # CuMF_SGD
 
-##Introduction
+## Introduction
 
 Matrix factorization has been demonstrated to be effective in recommender system, topic modeling, word embedding, and other machine learning applications. As the input data set is often large, MF solution are time-consuming. Therefore, how to solve MF problems efficiently is an important problem. There are mainly three algorithms to solve MF, coordinate gradient descent(CGD), alternate least square(ALS), and stochastic gradient descent(SGD). Our previous project tackles [ALS](https://github.com/wei-tan/cumf_als) acceleration on GPUs, we foucs on SGD solution in this project and present **cuMF_SGD**.
 
@@ -48,7 +48,7 @@ options:<br />
 -t <iterations>: number of iterations.<br />
 -a <alpha>: initial learning rate.<br />
 -b <beta>: learning rate scheduling parameter(see the paper for learning rate scheduling algorithm).<br />
--s <thread blocks>: number of thread blocks.<br />
+-s <parallel workers>: number of parallel workers.<br />
 -u :<br />
 -v : first level partion parameters. We partition the input matrix into u * v blocks. Default is 1 * 1.<br />
 -x :<br />
@@ -59,7 +59,9 @@ We have a run script for Netflix data set:
 
     ./data/netflix/run.sh
 
-In this script, we set u, v, x, and y as 1 as the data set is enough to fit into one GPU. We recommend developers to set thread blocks size as NumberOfSMs * NumberOfBlocksPerSM. On TITAN X GPU, the number is 24 * 32=768.
+In this script, we set u, v, x, and y as 1 as the data set is enough to fit into one GPU. 
+
+Developers can set parallel workers as 52 * NumberofSMs. On TITAN X GPU, the number is 24 * 52=1248. It works well. We also recommend you to fine tune this metric to maximize the performance. 
 
 
 ## Test

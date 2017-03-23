@@ -34,11 +34,16 @@ __global__ void sgd_k128_kernel_hogwild_warp32_lrate(
         for(int update_ite = 0; update_ite < update_count_this_block; update_ite ++)
         {
 
-            long long start_id;
-            if(threadIdx.x == 0)
+            int lane_id = threadIdx.x%32;
+            int local_wid = threadIdx.x/32;
+            int wid = 4*blockIdx.x + local_wid;  
+
+            long long start_id = 0;
+            if(lane_id == 0)
             {
-                long long origin = (long long)(curand_uniform(&state[blockIdx.x])*nnz);
+                long long origin = (long long)(curand_uniform(&state[wid])*nnz);
                 start_id = origin%nnz;
+                //start_id == 0;
             }
             start_id = __shfl(start_id, 0);
             
@@ -54,17 +59,17 @@ __global__ void sgd_k128_kernel_hogwild_warp32_lrate(
                 int base_p = u*k;
                 int base_q = v*k;
 
-                float tmp_p1 = __half2float(p[base_p + threadIdx.x]);
-                float tmp_q1 = __half2float(q[base_q + threadIdx.x]);
+                float tmp_p1 = __half2float(p[base_p + lane_id]);
+                float tmp_q1 = __half2float(q[base_q + lane_id]);
             
-                float tmp_p2 = __half2float(p[base_p + threadIdx.x + 32]);
-                float tmp_q2 = __half2float(q[base_q + threadIdx.x + 32]);
+                float tmp_p2 = __half2float(p[base_p + lane_id + 32]);
+                float tmp_q2 = __half2float(q[base_q + lane_id + 32]);
             
-                float tmp_p3 = __half2float(p[base_p + threadIdx.x + 64]);
-                float tmp_q3 = __half2float(q[base_q + threadIdx.x + 64]);
+                float tmp_p3 = __half2float(p[base_p + lane_id + 64]);
+                float tmp_q3 = __half2float(q[base_q + lane_id + 64]);
             
-                float tmp_p4 = __half2float(p[base_p + threadIdx.x + 96]);
-                float tmp_q4 = __half2float(q[base_q + threadIdx.x + 96]);
+                float tmp_p4 = __half2float(p[base_p + lane_id + 96]);
+                float tmp_q4 = __half2float(q[base_q + lane_id + 96]);
 
                 float tmp_product = tmp_p1*tmp_q1 + tmp_p2*tmp_q2 + tmp_p3*tmp_q3 + tmp_p4*tmp_q4;
 
@@ -79,23 +84,19 @@ __global__ void sgd_k128_kernel_hogwild_warp32_lrate(
 
                 float ruv = e - tmp_product;
 
-                #ifdef PRINTITE
-                    block_err += ruv*ruv;
-                #endif
-
                 //update
                 //only works for k=blockDim.x=128
-                p[base_p + threadIdx.x +  0] = __float2half(tmp_p1 + tmp_lrate*(ruv*tmp_q1 - lambda_p*tmp_p1));
-                q[base_q + threadIdx.x +  0] = __float2half(tmp_q1 + tmp_lrate*(ruv*tmp_p1 - lambda_q*tmp_q1));
+                p[base_p + lane_id +  0] = __float2half(tmp_p1 + tmp_lrate*(ruv*tmp_q1 - lambda_p*tmp_p1));
+                q[base_q + lane_id +  0] = __float2half(tmp_q1 + tmp_lrate*(ruv*tmp_p1 - lambda_q*tmp_q1));
 
-                p[base_p + threadIdx.x + 32] = __float2half(tmp_p2 + tmp_lrate*(ruv*tmp_q2 - lambda_p*tmp_p2));
-                q[base_q + threadIdx.x + 32] = __float2half(tmp_q2 + tmp_lrate*(ruv*tmp_p2 - lambda_q*tmp_q2));
+                p[base_p + lane_id + 32] = __float2half(tmp_p2 + tmp_lrate*(ruv*tmp_q2 - lambda_p*tmp_p2));
+                q[base_q + lane_id + 32] = __float2half(tmp_q2 + tmp_lrate*(ruv*tmp_p2 - lambda_q*tmp_q2));
 
-                p[base_p + threadIdx.x + 64] = __float2half(tmp_p3 + tmp_lrate*(ruv*tmp_q3 - lambda_p*tmp_p3));
-                q[base_q + threadIdx.x + 64] = __float2half(tmp_q3 + tmp_lrate*(ruv*tmp_p3 - lambda_q*tmp_q3));
+                p[base_p + lane_id + 64] = __float2half(tmp_p3 + tmp_lrate*(ruv*tmp_q3 - lambda_p*tmp_p3));
+                q[base_q + lane_id + 64] = __float2half(tmp_q3 + tmp_lrate*(ruv*tmp_p3 - lambda_q*tmp_q3));
 
-                p[base_p + threadIdx.x + 96] = __float2half(tmp_p4 + tmp_lrate*(ruv*tmp_q4 - lambda_p*tmp_p4));
-                q[base_q + threadIdx.x + 96] = __float2half(tmp_q4 + tmp_lrate*(ruv*tmp_p4 - lambda_q*tmp_q4));
+                p[base_p + lane_id + 96] = __float2half(tmp_p4 + tmp_lrate*(ruv*tmp_q4 - lambda_p*tmp_p4));
+                q[base_q + lane_id + 96] = __float2half(tmp_q4 + tmp_lrate*(ruv*tmp_p4 - lambda_q*tmp_q4));
             }    
         }
     }

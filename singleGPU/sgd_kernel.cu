@@ -128,10 +128,10 @@ void sgd_update_k128(Parameter para, mf_model *model, mf_problem *prob, float sc
     printf("calling sgd_update_k128() ...\n");
     //generate the random state for the hogwild scheduling policy.
     curandState *rand_state;
-    cudaMalloc(&rand_state, sizeof(curandState)*para.num_blocks);
+    cudaMalloc(&rand_state, sizeof(curandState)*para.num_workers);
     gpuErr(cudaPeekAtLastError());
 
-    init_rand_state<<<((para.num_blocks+255)/256),256>>>(rand_state,para.num_blocks);
+    init_rand_state<<<((para.num_workers+255)/256),256>>>(rand_state,para.num_workers);
     gpuErr(cudaPeekAtLastError());
 
     //generate the dynamic learning rate
@@ -200,7 +200,7 @@ void sgd_update_k128(Parameter para, mf_model *model, mf_problem *prob, float sc
     int max_update_count_per_block = -1;
     for(int cur_grid_id = 0;cur_grid_id < prob->ux*prob->vy; cur_grid_id ++)
     {
-        update_count_per_block[cur_grid_id] = (ceil)(1.0*prob->gridSize[cur_grid_id]/(para.num_blocks*update_vector_size));   
+        update_count_per_block[cur_grid_id] = (ceil)(1.0*prob->gridSize[cur_grid_id]/(para.num_workers*update_vector_size));   
         if(max_update_count_per_block < update_count_per_block[cur_grid_id])
         {
             max_update_count_per_block = update_count_per_block[cur_grid_id];
@@ -217,7 +217,7 @@ void sgd_update_k128(Parameter para, mf_model *model, mf_problem *prob, float sc
 
         clock_t start = clock();
 
-        sgd_k128_kernel_hogwild_warp32_lrate<<<para.num_blocks,32>>>(
+        sgd_k128_kernel_hogwild_warp32_lrate<<<para.num_workers/4,128>>>(
                                                      prob->gpuR,
                                                      prob->gridSize[0],
                                                      model->gpuHalfp,
@@ -323,7 +323,7 @@ void sgd_update_k128(Parameter para, mf_model *model, mf_problem *prob, float sc
                     gpuErr(cudaPeekAtLastError());
 
                     //call the kernel
-                    sgd_k128_kernel_hogwild_warp32_lrate<<<para.num_blocks,32>>>(
+                    sgd_k128_kernel_hogwild_warp32_lrate<<<para.num_workers/4,128>>>(
                                                      prob->gpuR,
                                                      prob->gridSize[cur_grid_id],
                                                      model->gpuHalfp,
@@ -457,7 +457,7 @@ void sgd_update_k128(Parameter para, mf_model *model, mf_problem *prob, float sc
                         if(i >= 0)
                         {
                             
-                            sgd_k128_kernel_hogwild_warp32_lrate<<<para.num_blocks,32, 0, stream_com>>>(
+                            sgd_k128_kernel_hogwild_warp32_lrate<<<para.num_workers/4,128, 0, stream_com>>>(
                                                             prob->gpuRptrs[i%2],
                                                             prob->gridSize[global_id_list[i]],
                                                             model->gpuHalfPptrs[i%2],
