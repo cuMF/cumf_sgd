@@ -78,7 +78,7 @@ We use the same model file with [Libmf](https://github.com/cjlin1/libmf) but wit
 
 Details can be found at:
 
-Xiaolong Xie, [Wei Tan](https://github.com/wei-tan), [Liana Fong](https://github.com/llfong), Yun Liang, CuMF_SGD: Fast and Scalable Matrix Factorization, arXiv preprint, arXiv:1610.05838([link](https://arxiv.org/abs/1610.05838)).
+Xiaolong Xie, [Wei Tan](https://github.com/wei-tan), [Liana Fong](https://github.com/llfong), Yun Liang, CuMF_SGD: Parallelized Stochastic Gradient Descent for Matrix Factorization on GPUs, ([arxiv link](https://arxiv.org/abs/1610.05838)).
 
 Our ALS-based MF solution can be found here:
 
