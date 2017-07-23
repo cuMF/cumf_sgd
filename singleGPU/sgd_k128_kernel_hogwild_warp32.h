@@ -51,7 +51,7 @@ __global__ void sgd_k128_kernel_hogwild_warp32_lrate(
             {
                 int offset = (start_id + i)%nnz;
                 
-                float e = __ldg(&R[offset].rate);
+                float r = __ldg(&R[offset].rate);
                 int u = __ldg(&R[offset].u);
                 int v = __ldg(&R[offset].v);
 
@@ -82,7 +82,7 @@ __global__ void sgd_k128_kernel_hogwild_warp32_lrate(
 
                 tmp_product = __shfl(tmp_product,0);
 
-                float ruv = e - tmp_product;
+                float ruv = r - tmp_product;
 
                 //update
                 //only works for k=blockDim.x=128
