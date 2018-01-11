@@ -4,8 +4,8 @@
 make clean
 make
 
-mv netflix_mm.txt netflix_mm
-mv netflix_mme.txt netflix_mme
+mv netflix_train.txt netflix_train
+mv netflix_test.txt netflix_test
 
-./transform netflix_mm
-./transform netflix_mme
+./transform netflix_train
+./transform netflix_test

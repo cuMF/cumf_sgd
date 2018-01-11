@@ -28,12 +28,9 @@ The input rating is organized as follows:
 
 user_id and item_id are 4-byte integers and rating is 4-byte floating point. They are all stored in binary format. 
 
+Please download netflix data set here[Netflix Data set](https://drive.google.com/drive/folders/1ZxG4hVWqNGnlvPwx0T7lDwDq816GLXv-?usp=sharing). Put all children files in ./data/netflix and move to next section.
 
-To facilitate your development, we describe how to prepare input data sets and use Netflix data set as example. The Netflix data sets can be downloaded from [CMU Graphlab](http://www.select.cs.cmu.edu/code/graphlab/datasets/). 
-
-We use netflix_mm/netflix_me as the train/test sets. The orginal files are in text format, not binary format. You can transform the format using the script located in data/netflix/run.sh. Download [netflix_mm](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mm) and [netflix_mme](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mme) , put the files in ./data/netflix run the script:
-	./data/netflix/prepare.sh
-Then you can use netflix_mm.bin as the train set and netflix_mme.bin as the test set. 
+The netflix_mm and netflix_mme are original data files downloaded from [netflix_mm](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mm) and [netflix_mme](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mme). As the download link no longer works, we put them on the above google drive link. If you are interested on how to transform "netflix_mm/netflix_mme" to "netflix_mm.bin/netflix_mme.bin", please check out ./data/netflix/prepare.sh
 
 
 ## Run
