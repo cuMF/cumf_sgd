@@ -30,7 +30,7 @@ user_id and item_id are 4-byte integers and rating is 4-byte floating point. The
 
 Please download netflix data set here[Netflix Data set](https://drive.google.com/drive/folders/1ZxG4hVWqNGnlvPwx0T7lDwDq816GLXv-?usp=sharing). Put all children files in ./data/netflix and move to next section.
 
-The netflix_mm and netflix_mme are original data files downloaded from [netflix_mm](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mm) and [netflix_mme](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mme). As the download link no longer works, we put them on the above google drive link. If you are interested on how to transform "netflix_mm/netflix_mme" to "netflix_mm.bin/netflix_mme.bin", please check out ./data/netflix/prepare.sh
+The netflix_mm and netflix_mme are original data files downloaded from [netflix_mm](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mm) and [netflix_mme](http://www.select.cs.cmu.edu/code/graphlab/datasets/netflix_mme). As the download link no longer works, we put them on the above google drive link. If you are interested on how to transform "netflix_train/netflix_test" to "netflix_train.bin/netflix_test.bin", please check out ./data/netflix/prepare.sh
 
 
 ## Run
